@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* ANIMASI FADE-IN DARI BAWAH */
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* KUSTOM SCROLLBAR (untuk sidebar di halaman materi) */
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 10px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+}
+
+/* * INI ADALAH PERBAIKAN UTAMA UNTUK KOTAK KODE
+ * Ini akan memberi background gelap (#2d2d2d)
+ * pada semua blok <pre>
+ */
+@layer base {
+  pre[class*="language-"] {
+    @apply rounded-md text-sm bg-[#2d2d2d] p-4 overflow-auto;
+  }
+  code[class*="language-"],
+  pre[class*="language-"] {
+    @apply font-mono;
+  }
+  
+  /* Ini memperbaiki warna inline code */
+  :not(pre) > code[class*="language-"] {
+    @apply bg-gray-200 text-gray-800 px-1 py-0.5 rounded-md;
+  }
+}

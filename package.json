@@ -1,0 +1,10 @@
+{
+  "name": "sistem_pelatihan_amba",
+  "version": "1.0.0",
+  "scripts": {
+    "css": "tailwindcss -i ./aset/css/input.css -o ./aset/css/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
