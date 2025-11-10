@@ -1,5 +1,4 @@
 <?php
-// Menampilkan error jika ada
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -8,12 +7,34 @@ $judul_halaman = 'Materi Pembelajaran';
 require_once __DIR__ . '/../konfigurasi/koneksi_db.php';
 require_once __DIR__ . '/../konfigurasi/fungsi_umum.php';
 
-// Cek dulu header_mahasiswa.php sebelum memanggilnya
 try {
     require_once __DIR__ . '/../templat/header_mahasiswa.php';
 } catch (Exception $e) {
     die("Fatal error: Gagal memuat header. Pastikan file /templat/header_mahasiswa.php ada. Error: " . $e->getMessage());
 }
+
+?>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+<style>
+    /* Ini untuk 'memaksa' tema Prism agar menang melawan tema default dari Tailwind 'prose'.
+      Tanpa ini, background dan warna teks kode Anda mungkin tidak akan berubah.
+    */
+    .prose pre[class*="language-"] {
+        background: #272822; /* Sesuaikan dengan background tema Okaidia */
+        color: #f8f8f2;
+        padding: 1.5em;
+        margin: 1em 0;
+        overflow: auto;
+        border-radius: 8px;
+    }
+    .prose code[class*="language-"] {
+        color: #f8f8f2;
+        background: none;
+        font-size: 0.9em; /* Sedikit lebih kecil agar rapi */
+    }
+</style>
+<?php
 
 $id_pengguna = $_SESSION['id_pengguna'];
 $id_materi_saat_ini = $_GET['id'] ?? 0;
@@ -42,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['aksi']) && $_POST['aks
 }
 
 try {
-    // 1. Ambil SEMUA materi untuk sidebar
     $stmt_semua = $pdo->prepare("
         SELECT 
             m.id_materi, m.judul_materi,
@@ -54,7 +74,6 @@ try {
     $stmt_semua->execute([$id_pengguna, $id_pelatihan_default]);
     $semua_materi = $stmt_semua->fetchAll();
 
-    // 2. Ambil detail materi SAAT INI
     $stmt_current = $pdo->prepare("SELECT * FROM materi WHERE id_materi = ?");
     $stmt_current->execute([$id_materi_saat_ini]);
     $materi = $stmt_current->fetch();
@@ -64,12 +83,10 @@ try {
         exit();
     }
 
-    // 3. Cek status selesai materi SAAT INI
     $stmt_progres = $pdo->prepare("SELECT id_progres FROM progres_materi WHERE id_pengguna = ? AND id_materi = ?");
     $stmt_progres->execute([$id_pengguna, $id_materi_saat_ini]);
     $sudah_selesai = $stmt_progres->fetch();
 
-    // 4. Cari materi Sebelumnya & Berikutnya
     $prev_materi = null;
     $next_materi = null;
     $total_selesai = 0;
@@ -88,7 +105,6 @@ try {
         }
     }
     
-    // 5. Hitung progres
     $total_materi_count = count($semua_materi);
     $persen_progres = ($total_materi_count > 0) ? ($total_selesai / $total_materi_count) * 100 : 0;
 
@@ -103,7 +119,6 @@ try {
     $persen_progres = 0;
 }
 
-// Set ulang judul halaman di header
 if ($materi) {
     $judul_halaman = $materi['judul_materi'];
     echo "<script>document.title = '" . htmlspecialchars($judul_halaman) . " - Pelatihan AMBA';</script>";
@@ -167,7 +182,6 @@ if ($materi) {
                     if (empty($materi['konten_web'])) {
                         echo '<p class="text-gray-500 italic">Konten untuk materi ini belum tersedia. Silakan cek kembali nanti.</p>';
                     } else {
-                        // Ini akan merender HTML dan Prism.js akan mewarnainya secara otomatis
                         echo $materi['konten_web'];
                     }
                     ?>
@@ -190,16 +204,16 @@ if ($materi) {
                     <?php if (!$sudah_selesai && !empty($materi['konten_web'])): ?>
                         <form action="lihat_materi.php?id=<?php echo $id_materi_saat_ini; ?>" method="POST" class="w-full md:w-auto">
                             <input type="hidden" name="aksi" value="selesai">
-                            <button typeT="submit"
+                            <button type="submit"
                                     class="w-full py-3 px-6 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 transition duration-200">
                                 Tandai Selesai & Lanjutkan &rarr;
                             </button>
                         </form>
                     <?php elseif ($next_materi): ?>
                          <a href="lihat_materi.php?id=<?php echo $next_materi['id_materi']; ?>"
-                           class="w-full md:w-auto py-3 px-6 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-amba-hijau-tua hover:bg-amba-hijau-muda hover:text-amba-hijau-tua transition duration-200 text-center">
+                            class="w-full md:w-auto py-3 px-6 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-amba-hijau-tua hover:bg-amba-hijau-muda hover:text-amba-hijau-tua transition duration-200 text-center">
                             Materi Berikutnya &rarr;
-                        </a>
+                         </a>
                     <?php else: ?>
                         <span class="w-full md:w-auto py-3 px-6 rounded-md text-lg font-medium text-green-800 bg-green-100 text-center">
                             ✓ Semua Materi Selesai!
@@ -211,10 +225,9 @@ if ($materi) {
         </div>
     </div>
 </div>
-<?php endif; // Akhir dari if ($materi) ?>
+<?php endif; ?>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 <?php
-// HAPUS footer_mahasiswa.php dari sini
-// require_once __DIR__ . '/../templat/footer_mahasiswa.php';
-// Kita tutup tag di file footer utama, bukan di sini.
 ?>

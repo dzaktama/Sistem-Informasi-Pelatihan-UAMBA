@@ -12,45 +12,37 @@ cek_peran('admin');
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <link href="../aset/css/output.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link rel="icon" href="../aset/img/favicon.ico" type="image/x-icon">
 </head>
-<body class="bg-gray-100 font-sans"> <div class="flex h-screen bg-gray-100">
-        
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen bg-gray-100">
         <div class="fixed inset-y-0 left-0 w-64 bg-amba-hijau-tua text-white p-6 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-30">
             <a href="index.php" class="flex items-center space-x-3 mb-10">
                 <img src="../aset/img/logo_amba.png" alt="Logo AMBA" class="w-10 h-auto bg-white rounded-full p-1">
                 <span class="text-xl font-bold">Admin AMBA</span>
             </a>
-
             <nav>
                 <a href="index.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Dashboard</a>
                 <a href="kelola_pengguna.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Pengguna</a>
-                <a href="kelola_sesi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Sesi</a>
+                <a href="kelola_sesi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Sesi & Konten</a>
                 <a href="kelola_materi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Modul (File)</a>
-                <a href="kelola_presensi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Presensi (Offline)</a>
-                <a href="kelola_evaluasi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Evaluasi</a>
+                <a href="kelola_presensi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Presensi (Offline)</a>
+                
+                <a href="kelola_nilai_sesi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Nilai Sesi (Tugas/Kuis)</a>
+
+                <a href="kelola_evaluasi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Nilai Pre/Post Test</a>
                 <a href="kelola_sertifikat.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Sertifikat</a>
                 <a href="laporan_progres.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Laporan Progres (Online)</a>
                 <a href="laporan_akhir.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Laporan Akhir (Cetak)</a>
             </nav>
         </div>
-
         <div class="flex-1 flex flex-col md:ml-64">
-            
             <header class="bg-white shadow-md p-4 flex justify-between items-center z-10">
                 <h1 id="judul-halaman-header" class="text-2xl font-semibold text-gray-800"><?php echo $judul_halaman ?? 'Dashboard'; ?></h1>
-                
                 <div class="flex items-center space-x-4">
-                    <span class="text-gray-700">
-                        Selamat datang, 
-                        <span class="font-medium"><?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?></span>
-                    </span>
-                    <a href="../keluar.php" class="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-200 text-sm font-medium">
-                        Keluar
-                    </a>
+                    <span class="text-gray-700">Selamat datang, <span class="font-medium"><?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?></span></span>
+                    <a href="../keluar.php" class="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-200 text-sm font-medium">Keluar</a>
                 </div>
             </header>
-
             <main class="flex-1 p-6 bg-gray-100 overflow-y-auto scrollbar-custom">
