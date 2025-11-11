@@ -37,7 +37,7 @@ Gunakan akun berikut untuk login dan menguji sistem.
 
 2.  **Koneksi PHP**
     * Buka file `konfigurasi/koneksi_db.php`.
-    * Ubah `$user_db` dan `$pass_db` sesuai settingan MySQL lo. Biasanya sih `root` dan passwordnya kosong `''`.
+    * Ubah `$user_db` dan `$pass_db` sesuai settingan MySQL masing masing. Biasanya sih `root` dan passwordnya kosong `''`.
 
 3.  **Install Tailwind**
     * Buka terminal di folder proyek (`/sistem_pelatihan_amba/`).
