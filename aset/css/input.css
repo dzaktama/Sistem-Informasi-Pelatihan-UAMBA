@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer utilities {
-  /* ANIMASI FADE-IN DARI BAWAH */
+  /* ... (sisa kode animasi dan scrollbar Anda) ... */
   .animate-fade-in-up {
     animation: fade-in-up 0.5s ease-out forwards;
     opacity: 0;
@@ -20,7 +22,6 @@
     }
   }
 
-  /* KUSTOM SCROLLBAR (untuk sidebar di halaman materi) */
   .scrollbar-custom::-webkit-scrollbar {
     width: 8px;
   }
@@ -37,10 +38,6 @@
   }
 }
 
-/* * INI ADALAH PERBAIKAN UTAMA UNTUK KOTAK KODE
- * Ini akan memberi background gelap (#2d2d2d)
- * pada semua blok <pre>
- */
 @layer base {
   pre[class*="language-"] {
     @apply rounded-md text-sm bg-[#2d2d2d] p-4 overflow-auto;
@@ -50,7 +47,6 @@
     @apply font-mono;
   }
   
-  /* Ini memperbaiki warna inline code */
   :not(pre) > code[class*="language-"] {
     @apply bg-gray-200 text-gray-800 px-1 py-0.5 rounded-md;
   }

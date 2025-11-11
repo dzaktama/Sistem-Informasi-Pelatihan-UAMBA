@@ -14,7 +14,8 @@ module.exports = {
         'amba-abu': '#a7aa9d', 
       },
       fontFamily: {
-        'sans': ['Inter', 'sans-serif'], 
+        // GANTI DI SINI
+        'sans': ['Montserrat', 'sans-serif'], 
       }
     },
   },
