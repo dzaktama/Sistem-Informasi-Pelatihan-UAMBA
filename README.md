@@ -17,10 +17,14 @@
 
 ## 🚀 Akun Buat Login
 
+Gunakan akun berikut untuk login dan menguji sistem.
+
 | Peran | Email / Username | Password |
 | :--- | :--- | :--- |
 | 👨‍💼 **Admin** | `admin@amba.ac.id` | `1` |
 | 🎓 **User** | `124230024@upnyk.ac.id` | `1` |
+
+*(Catatan: Akun User (mahasiswa) lain dapat ditambahkan melalui panel Admin di "Kelola Pengguna")*
 
 ---
 
@@ -57,6 +61,8 @@
 ## 📁 Struktur Folder
 
 Struktur file dan folder proyek ini adalah sebagai berikut:
+
+```text
 /sistem_pelatihan_amba/
 ├── admin/
 │   ├── index.php
