@@ -1,4 +1,4 @@
-# ADUHKAMERADEPAN
+# SISTEM INFORMASI PELATIHAN UAMBA
 
 <p align="center">
   <strong>Sistem Informasi Pelatihan untuk Universitas AMBA</strong>
