@@ -26,7 +26,6 @@ cek_peran('admin');
                 <a href="index.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Dashboard</a>
                 <a href="kelola_pengguna.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Pengguna</a>
                 <a href="kelola_sesi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Sesi & Konten</a>
-                <a href="kelola_materi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Kelola Modul (File)</a>
                 <a href="kelola_presensi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Presensi (Offline)</a>
                 
                 <a href="kelola_nilai_sesi.php" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-amba-hijau-muda hover:text-amba-hijau-tua">Nilai Sesi (Tugas/Kuis)</a>
