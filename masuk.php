@@ -1,5 +1,5 @@
 <?php
-// Anda dapat menghapus semua komentar PHP di sini.
+// nyalain error reporting biar gampang debugging kalo ada masalah
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -8,6 +8,7 @@ session_start();
 require_once 'konfigurasi/koneksi_db.php';
 require_once 'konfigurasi/fungsi_autentikasi.php';
 
+// kalo user udah login, langsung lempar ke halaman dashboard sesuai perannya
 sudah_login();
 
 $error = '';
@@ -19,28 +20,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        try {
-            $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE email = ?");
-            $stmt->execute([$email]);
-            $pengguna = $stmt->fetch();
+        // validasi domain email, wajib pake @amba.ac.id
+        if (substr($email, -11) !== '@amba.ac.id') {
+            $error = 'Harap gunakan email kampus (@amba.ac.id) untuk masuk.';
+        } else {
+            try {
+                $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE email = ?");
+                $stmt->execute([$email]);
+                $pengguna = $stmt->fetch();
 
-            if ($pengguna && $password == $pengguna['kata_sandi']) {
-                
-                $_SESSION['id_pengguna'] = $pengguna['id_pengguna'];
-                $_SESSION['nama_lengkap'] = $pengguna['nama_lengkap'];
-                $_SESSION['peran'] = $pengguna['peran'];
+                if ($pengguna && $password == $pengguna['kata_sandi']) {
+                    
+                    $_SESSION['id_pengguna'] = $pengguna['id_pengguna'];
+                    $_SESSION['nama_lengkap'] = $pengguna['nama_lengkap'];
+                    $_SESSION['peran'] = $pengguna['peran'];
 
-                if ($pengguna['peran'] == 'admin') {
-                    header("Location: admin/index.php");
+                    if ($pengguna['peran'] == 'admin') {
+                        header("Location: admin/index.php");
+                    } else {
+                        header("Location: mahasiswa/index.php");
+                    }
+                    exit();
                 } else {
-                    header("Location: mahasiswa/index.php");
+                    $error = 'Email atau kata sandi salah.';
                 }
-                exit();
-            } else {
-                $error = 'Email atau kata sandi salah.';
+            } catch (PDOException $e) {
+                $error = "Terjadi masalah: " . $e->getMessage();
             }
-        } catch (PDOException $e) {
-            $error = "Terjadi masalah: " . $e->getMessage();
         }
     }
 }
@@ -67,7 +73,16 @@ require_once 'templat/header_publik.php';
 
             <form action="masuk.php" method="POST" style="display:flex;flex-direction:column;gap:10px;">
                 <label for="email" style="font-size:14px;color:#333;text-align:left;font-weight:500;margin-top:10px;">Alamat Email</label>
-                <input id="email" name="email" type="email" required style="padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;outline:none;">
+                <input 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    required 
+                    placeholder="nama@amba.ac.id" 
+                    pattern=".+@amba\.ac\.id" 
+                    title="Harap gunakan alamat email dengan domain @amba.ac.id"
+                    style="padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;outline:none;"
+                >
                 
                 <label for="password" style="font-size:14px;color:#333;text-align:left;font-weight:500;">Kata Sandi</label>
                 <input id="password" name="password" type="password" required style="padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;outline:none;margin-bottom:15px;">
